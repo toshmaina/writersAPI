@@ -1,0 +1,68 @@
+[{
+  "id": "1",
+  "name" : "james peter",
+  "subscribed_at" : "2022-01-05T15:56:48.732Z",
+  "expiry_date" : "2022-01-05T15:56:48.732Z",
+  "amount" : 2000,
+  "phone_number" : "0780908756",
+  "status" : true
+},
+  {
+  "id": "e6b2b82f-b199-4a60-9696-5f3e40d2715e",
+  "name" : "james maina",
+  "subscribed_at" : "2022-01-05T15:56:48.732Z",
+  "expiry_date" : "2022-01-05T15:56:48.732Z",
+  "amount" : 2000,
+    "phone_number" : "0780908756",
+  "status" : true
+},
+  {
+  "id": "e6b2b82f-b199-4a60-9696",
+  "name" : "james mary",
+  "subscribed_at" : "2022-01-05T15:56:48.732Z",
+  "expiry_date" : "2022-01-05T15:56:48.732Z",
+  "amount" : 2000,
+  "phone_number" : "0780908756",
+  "status" : true
+},
+{
+  "id": "e6b2b82f-b199-4a60",
+  "name" : "james mary",
+  "subscribed_at" : "2022-01-05T15:56:48.732Z",
+  "expiry_date" : "2022-01-05T15:56:48.732Z",
+  "amount" : 2000,
+  "phone_number" : "0780908756",
+  "status" : true
+}
+,
+  {
+  "id": "e6b2b82f-b199-4a60-9696-5f",
+  "name" : "james mary",
+  "subscribed_at" : "2022-01-05T15:56:48.732Z",
+  "expiry_date" : "2022-01-05T15:56:48.732Z",
+  "amount" : 2000,
+  "phone_number" : "0780908756",
+  "status" : true
+}
+,
+  {
+  "id": "e6b2b82f-b199-4a",
+  "name" : "james mary",
+  "subscribed_at" : "2022-01-05T15:56:48.732Z",
+  "expiry_date" : "2022-01-05T15:56:48.732Z",
+  "amount" : 2000,
+  "phone_number" : "0780908756",
+  "status" : true
+}
+,
+  {
+  "id": "e6b2b82f-b199-4a60-96",
+  "name" : "james mary",
+  "subscribed_at" : "2022-01-05T15:56:48.732Z",
+  "expiry_date" : "2022-01-05T15:56:48.732Z",
+  "amount" : 2000,
+  "phone_number" : "0780908756",
+  "status" : true
+}
+  
+]
