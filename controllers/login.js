@@ -11,8 +11,7 @@ const handleLogin = async ({ body }, res) => {
 		return res.json({ message: "name and  password must be provided" });
 	const foundUser = await User.findOne({ name }).exec();
 
-	if (!foundUser)
-		return res.json({ message: "unathorised user" }).sendStatus(401);
+	if (!foundUser) return res.sendStatus(401);
 
 	const { password: foundUserPassword, name: foundUserName } = foundUser;
 	//evaluate password

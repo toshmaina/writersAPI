@@ -22,16 +22,20 @@ const replaceEmployer = async (
 		!email ||
 		!phoneNumber ||
 		active === undefined ||
-		idNumber
+		!idNumber
 	)
 		return res.sendStatus(400);
 	const foundEmployer = await Employer.findOne({ id });
+
 	if (!foundEmployer) return res.sendStatus(404);
 	try {
-		await Employer.updateMany({ id }, { $set: substituteEmployer });
+		const { acknowledged } = await Employer.updateMany(
+			{ id },
+			{ $set: substituteEmployer }
+		);
+		acknowledged && res.sendStatus(200);
 	} catch (error) {
 		logEvents({ message: error.message, logName: "error" });
 	}
-	res.sendStatus(204);
 };
 module.exports = replaceEmployer;

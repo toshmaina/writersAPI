@@ -56,7 +56,7 @@ const [
 	require("./routes/writer"),
 	require("./routes/deactivateWriter"),
 	require("./routes/updateWriter"),
-	require("./routes/writersDetails"),
+	require("./routes/writers"),
 	require("./routes/register"),
 	require("./routes/login"),
 	require("./routes/logout"),
@@ -103,9 +103,9 @@ app.use("/api/apiKey", generateApiKey);
 app.use(verifyApiKey);
 
 app.use("/api/users", getUsers);
-app.use("/api/users/:id", getUser);
+app.use("/api/user", getUser);
 app.use("/api/employers", getEmployers);
-app.use("/api/employers/:id", getEmployer);
+app.use("/api/employers", getEmployer); //
 app.use("/api/writers", getWritersDetails);
 app.use("/api/register", handleNewUser);
 app.use("/api/login", loginUser);
@@ -117,14 +117,14 @@ app.use(verifyJWT);
 
 app.use("/api/auth/sign-in", getCredencials);
 app.use("/api/subscribers", getSubscribers);
-app.use("/api/subscribers/:id", getSubscriber);
-app.use("/api/writers/:id", getWriter);
+app.use("/api/subscriber", getSubscriber);
+app.use("/api/writer", getWriter);
 //verify roles only admins are allowed to delete an employer
 app.use("/api/remove/employers", removeEmployers);
-app.use("/api/remove/employers/:id", removeEmployer);
-app.use("/api/update/employers/:id", updateEmployer);
+app.use("/api/remove/employer", removeEmployer);
+app.use("/api/update/employer", updateEmployer);
 app.use("/api/deactivate/employers", deactivateEmployers);
-app.use("/api/deactivate/employers/:id", deactivateEmployer);
+app.use("/api/deactivate/employer", deactivateEmployer);
 
 app.use("/api/deactivate/subscriber", deactivateSubscriber);
 app.use("/api/update/subscriber", updateSubscriber);

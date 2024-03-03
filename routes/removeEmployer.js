@@ -3,5 +3,5 @@ const [express, removeEmployer] = [
 	require("../controllers/removeEmployer"),
 ];
 const router = express.Router();
-const employer = router.delete("/", removeEmployer);
+const employer = router.delete("/:id", removeEmployer);
 module.exports = employer;

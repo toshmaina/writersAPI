@@ -3,5 +3,5 @@ const [express, updateWriter] = [
 	require("../controllers/updateWriter"),
 ];
 const router = express.Router();
-const writer = router.put("/", updateWriter);
+const writer = router.put("/:id", updateWriter);
 module.exports = writer;

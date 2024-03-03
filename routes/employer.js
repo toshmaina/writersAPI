@@ -3,5 +3,5 @@ const [express, getEmployer] = [
 	require("../controllers/employer"),
 ];
 const router = express.Router();
-const employer = router.get("/", getEmployer);
+const employer = router.get("/:id", getEmployer);
 module.exports = employer;

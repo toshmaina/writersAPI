@@ -3,5 +3,5 @@ const [express, getSubscriber] = [
 	require("../controllers/subscriber"),
 ];
 const router = express.Router();
-const subscriber = router.get("/", getSubscriber);
+const subscriber = router.get("/:id", getSubscriber);
 module.exports = subscriber;

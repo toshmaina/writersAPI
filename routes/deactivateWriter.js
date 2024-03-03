@@ -3,5 +3,5 @@ const [express, deactivateWriter] = [
 	require("../controllers/deactivateWriter"),
 ];
 const router = express.Router();
-const writer = router.patch("/", deactivateWriter);
+const writer = router.patch("/:id", deactivateWriter);
 module.exports = writer;

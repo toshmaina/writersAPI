@@ -1,6 +1,10 @@
 const { Schema, model } = require("mongoose");
 
 const subscriberSchema = new Schema({
+	id: {
+		type: String,
+		required: true,
+	},
 	name: {
 		type: String,
 		required: true,
@@ -14,7 +18,7 @@ const subscriberSchema = new Schema({
 		required: true,
 	},
 	amount: {
-		type: String,
+		type: Number,
 		required: true,
 	},
 	phoneNumber: {

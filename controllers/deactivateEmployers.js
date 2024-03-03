@@ -3,7 +3,7 @@ const [Employer, logEvents] = [
 	require("../lib/logEvents"),
 ];
 
-const deactivateEmployer = async (req, res) => {
+const deactivateEmployers = async (req, res) => {
 	try {
 		await Employer.updateMany({}, { $set: { active: false } });
 	} catch (error) {
@@ -11,4 +11,4 @@ const deactivateEmployer = async (req, res) => {
 	}
 	res.sendStatus(204);
 };
-module.exports = deactivateEmployer;
+module.exports = deactivateEmployers;

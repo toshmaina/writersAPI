@@ -9,14 +9,6 @@ const userSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	roles: {
-		user: {
-			type: Number,
-			default: 2001,
-		},
-		admin: Number,
-		editor: Number,
-	},
 
 	refreshToken: String,
 });

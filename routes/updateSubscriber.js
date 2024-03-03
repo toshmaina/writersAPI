@@ -3,5 +3,5 @@ const [express, updateSubscriber] = [
 	require("../controllers/updateSubscriber"),
 ];
 const router = express.Router();
-const subscriber = router.put("/", updateSubscriber);
+const subscriber = router.put("/:id", updateSubscriber);
 module.exports = subscriber;

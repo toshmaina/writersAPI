@@ -10,9 +10,8 @@ const verifyJWT = (req, res, next) => {
 			.sendStatus(400)
 			.json({ error: "Use the Bearer Token authorization" });
 	const accessToken = authHeader.split(" ")[1];
-	console.log(accessToken);
 	jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (error, decoded) => {
-		if (error) return res.json({ message: "Invalid access token" });
+		if (error) return res.json({ message: "Invalid access token" }).status(401);
 		req.user = decoded.name;
 		next();
 	});

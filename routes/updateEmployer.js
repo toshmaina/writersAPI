@@ -3,5 +3,5 @@ const [express, updateEmployer] = [
 	require("../controllers/updateEmployer"),
 ];
 const router = express.Router();
-const employer = router.put("/", updateEmployer);
+const employer = router.put("/:id", updateEmployer);
 module.exports = employer;

@@ -3,8 +3,7 @@ const [Subscriber, logEvents] = [
 	require("../lib/logEvents"),
 ];
 
-const deactivateSubscriber = async ({ params }, res) => {
-	const { id } = params;
+const deactivateSubscriber = async ({ params: { id } }, res) => {
 	if (!id) return res.sendStatus(400);
 	const foundSubscriber = await Subscriber.findOne({ id });
 	if (!foundSubscriber) return res.sendStatus(404);

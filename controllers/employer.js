@@ -1,7 +1,14 @@
-const Employer = require("../models/Employer");
+const [Employer, logEvents] = [
+	require("../models/Employer"),
+	require("../lib/logEvents"),
+];
 
-const handleEmployer = async ({ params: { id } }, res) => {
-	const employer = Employer.findOne({ id });
-	res.json(employer);
+const getEmployer = async ({ params: { id } }, res) => {
+	try {
+		const employer = await Employer.findOne({ id }).exec();
+		res.json(employer);
+	} catch (error) {
+		logEvents({ message: error.message, logName: "error" });
+	}
 };
-module.exports = handleEmployer;
+module.exports = getEmployer;

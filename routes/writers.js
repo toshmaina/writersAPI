@@ -1,5 +1,3 @@
-import getWriters from "../controllers/writers";
-
 const [express, getWriters] = [
 	require("express"),
 	require("../controllers/writers"),
