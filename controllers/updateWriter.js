@@ -18,10 +18,13 @@ const replaceWriter = async ({ body: substituteWriter }, res) => {
 	const foundWriter = await Writer.findOne({ id });
 	if (!foundWriter) return res.sendStatus(404);
 	try {
-		await Writer.updateOne({ id }, { $set: substituteWriter });
+		const { acknowledged } = await Writer.updateOne(
+			{ id },
+			{ $set: substituteWriter }
+		);
+		acknowledged && res.sendStatus(200);
 	} catch (error) {
 		logEvents({ message: error.message, logName: "error" });
 	}
-	res.sendStatus(204);
 };
 module.exports = replaceWriter;

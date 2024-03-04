@@ -6,7 +6,6 @@ const [
 	PORT,
 	cors,
 	getWidgets,
-	getCredencials,
 	getEmployers,
 	removeEmployers,
 	deactivateEmployers,
@@ -30,7 +29,6 @@ const [
 	corsOptions,
 	verifyOrigins,
 	getSubscribers,
-	removeSubscribers,
 	getSubscriber,
 	deactivateSubscriber,
 	updateSubscriber,
@@ -45,7 +43,7 @@ const [
 	process.env.PORT || 8000,
 	require("cors"),
 	require("./controllers/widgets"),
-	require("./routes/auth"),
+
 	require("./routes/employers"),
 	require("./routes/removeEmployers"),
 	require("./routes/deactivateEmployers"),
@@ -69,7 +67,6 @@ const [
 	require("./config/allowedOrigins"),
 	require("./middleware/verifyOrigins"),
 	require("./routes/subscribers"),
-	require("./routes/removeSubscribers"),
 	require("./routes/subscriber"),
 	require("./routes/deactivateSubscriber"),
 	require("./routes/updateSubscriber"),
@@ -115,7 +112,6 @@ app.use("/api/widgets", getWidgets);
 
 app.use(verifyJWT);
 
-app.use("/api/auth/sign-in", getCredencials);
 app.use("/api/subscribers", getSubscribers);
 app.use("/api/subscriber", getSubscriber);
 app.use("/api/writer", getWriter);
@@ -128,7 +124,6 @@ app.use("/api/deactivate/employer", deactivateEmployer);
 
 app.use("/api/deactivate/subscriber", deactivateSubscriber);
 app.use("/api/update/subscriber", updateSubscriber);
-app.use("/api/remove/subscribers", removeSubscribers);
 
 app.use("/api/deactivate/writer", deactivateWriter);
 app.use("/api/update/writer", updateWriter);
