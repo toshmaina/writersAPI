@@ -43,7 +43,6 @@ const [
 	process.env.PORT || 8000,
 	require("cors"),
 	require("./controllers/widgets"),
-
 	require("./routes/employers"),
 	require("./routes/removeEmployers"),
 	require("./routes/deactivateEmployers"),
