@@ -1,4 +1,5 @@
 const [
+	connectToRedis,
 	logErrors,
 	cookieParser,
 	express,
@@ -6,6 +7,7 @@ const [
 	PORT,
 	cors,
 	getWidgets,
+	cachedEmployers,
 	getEmployers,
 	removeEmployers,
 	deactivateEmployers,
@@ -36,6 +38,7 @@ const [
 	generateApiKey,
 	verifyApiKey,
 ] = [
+	require("./config/connectToRedisCache"),
 	require("./middleware/handleErrors"),
 	require("cookie-parser"),
 	require("express"),
@@ -43,6 +46,7 @@ const [
 	process.env.PORT || 8000,
 	require("cors"),
 	require("./controllers/widgets"),
+	require("./middleware/getCachedEmployers"),
 	require("./routes/employers"),
 	require("./routes/removeEmployers"),
 	require("./routes/deactivateEmployers"),
@@ -59,7 +63,7 @@ const [
 	require("./routes/logout"),
 	require("./middleware/verifyJWT"),
 	require("./routes/refresh"),
-	require("./config/connectToDB"),
+	require("./config/connectToMongoDB"),
 	require("mongoose"),
 	require("./routes/users"),
 	require("./routes/user"),
@@ -77,6 +81,7 @@ const app = express();
 
 app.use(logErrors);
 connectToDB();
+connectToRedis();
 
 require("dotenv").config();
 //built in middleware to serve all of the static files that are to be sent to the client
@@ -100,7 +105,7 @@ app.use(verifyApiKey);
 
 app.use("/api/users", getUsers);
 app.use("/api/user", getUser);
-app.use("/api/employers", getEmployers);
+app.use("/api/employers", cachedEmployers, getEmployers);
 app.use("/api/employers", getEmployer); //
 app.use("/api/writers", getWritersDetails);
 app.use("/api/register", handleNewUser);
@@ -128,7 +133,7 @@ app.use("/api/deactivate/writer", deactivateWriter);
 app.use("/api/update/writer", updateWriter);
 
 mongoose.connection.once("connected", () => {
-	console.log("Connected to the database");
+	console.log("Connected to MongoDB database");
 	app.listen(PORT, () => {
 		console.log(`Server Listening on port ${PORT}`);
 	});

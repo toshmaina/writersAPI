@@ -30,10 +30,6 @@ const generateApiKey = async ({ body }, res) => {
 	const API_KEY = process.env.RESEND_API_KEY;
 	if (!API_KEY) return;
 	const resend = new Resend(process.env.RESEND_API_KEY);
-	const extractName = email
-		.split("@")[1]
-		.split()
-		.filter((el) => !isNaN(el));
 
 	try {
 		const { error, data } = await resend.emails.send({
