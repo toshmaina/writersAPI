@@ -1,13 +1,15 @@
-const { createClient } = require("redis");
+const [{ createClient }, logEvents] = [
+	require("redis"),
+	require("../lib/logEvents"),
+];
 
 const handleRedisCacheConnection = async () => {
-	if (
-		![
-			process.env.REDIS_HOST,
-			process.env.REDIS_PORT,
-			process.env.REDIS_PASSWORD,
-		].every(Boolean)
-	) {
+	const [REDIS_HOST, REDIS_PORT, REDIS_PASSWORD] = [
+		process.env.REDIS_HOST,
+		process.env.REDIS_PORT,
+		process.env.REDIS_PASSWORD,
+	];
+	if (![REDIS_HOST, REDIS_PORT, REDIS_PASSWORD].every(Boolean)) {
 		logEvents({
 			logName: "error",
 			message: "failed to load redis environment variables",
@@ -16,14 +18,17 @@ const handleRedisCacheConnection = async () => {
 	}
 	console.log("Ready to connect to redis server");
 	const client = createClient({
-		password: process.env.REDIS_PASSWORD,
+		password: REDIS_PASSWORD,
 		socket: {
-			host: process.env.REDIS_HOST,
-			port: process.env.REDIS_PORT,
+			host: REDIS_HOST,
+			port: REDIS_PORT,
 		},
 	});
 	try {
 		await client.connect();
+		/* 		client.on("error", (error) => {
+			throw new Error(error);
+		}); */
 		console.log("connected to redis cache server");
 	} catch (error) {
 		console.log("error connecting to redis cache server");

@@ -18,6 +18,7 @@ const [
 	getWriter,
 	deactivateWriter,
 	updateWriter,
+	getCachedWriters,
 	getWritersDetails,
 	handleNewUser,
 	loginUser,
@@ -26,11 +27,13 @@ const [
 	generateAccessTokenFromRefreshToken,
 	connectToDB,
 	mongoose,
+	getCachedUsers,
 	getUsers,
 	getUser,
 	corsOptions,
 	verifyOrigins,
 	getSubscribers,
+	getCachedSubscribers,
 	getSubscriber,
 	deactivateSubscriber,
 	updateSubscriber,
@@ -57,6 +60,7 @@ const [
 	require("./routes/writer"),
 	require("./routes/deactivateWriter"),
 	require("./routes/updateWriter"),
+	require("./middleware/getCachedWriters"),
 	require("./routes/writers"),
 	require("./routes/register"),
 	require("./routes/login"),
@@ -65,11 +69,13 @@ const [
 	require("./routes/refresh"),
 	require("./config/connectToMongoDB"),
 	require("mongoose"),
+	require("./middleware/getCachedUsers"),
 	require("./routes/users"),
 	require("./routes/user"),
 	require("./config/allowedOrigins"),
 	require("./middleware/verifyOrigins"),
 	require("./routes/subscribers"),
+	require("./middleware/getCachedEmployers"),
 	require("./routes/subscriber"),
 	require("./routes/deactivateSubscriber"),
 	require("./routes/updateSubscriber"),
@@ -103,11 +109,11 @@ app.use("/api/apiKey", generateApiKey);
 
 app.use(verifyApiKey);
 
-app.use("/api/users", getUsers);
+app.use("/api/users", getCachedUsers, getUsers);
 app.use("/api/user", getUser);
 app.use("/api/employers", cachedEmployers, getEmployers);
 app.use("/api/employers", getEmployer); //
-app.use("/api/writers", getWritersDetails);
+app.use("/api/writers", getCachedWriters, getWritersDetails);
 app.use("/api/register", handleNewUser);
 app.use("/api/login", loginUser);
 app.use("/api/refresh", generateAccessTokenFromRefreshToken);
@@ -116,7 +122,7 @@ app.use("/api/widgets", getWidgets);
 
 app.use(verifyJWT);
 
-app.use("/api/subscribers", getSubscribers);
+app.use("/api/subscribers", getCachedSubscribers, getSubscribers);
 app.use("/api/subscriber", getSubscriber);
 app.use("/api/writer", getWriter);
 //verify roles only admins are allowed to delete an employer
