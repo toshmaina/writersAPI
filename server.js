@@ -1,4 +1,5 @@
 const [
+	connectToRedis,
 	logErrors,
 	cookieParser,
 	express,
@@ -6,6 +7,7 @@ const [
 	PORT,
 	cors,
 	getWidgets,
+	cachedEmployers,
 	getEmployers,
 	removeEmployers,
 	deactivateEmployers,
@@ -16,6 +18,7 @@ const [
 	getWriter,
 	deactivateWriter,
 	updateWriter,
+	getCachedWriters,
 	getWritersDetails,
 	handleNewUser,
 	loginUser,
@@ -24,11 +27,13 @@ const [
 	generateAccessTokenFromRefreshToken,
 	connectToDB,
 	mongoose,
+	getCachedUsers,
 	getUsers,
 	getUser,
 	corsOptions,
 	verifyOrigins,
 	getSubscribers,
+	getCachedSubscribers,
 	getSubscriber,
 	deactivateSubscriber,
 	updateSubscriber,
@@ -36,6 +41,7 @@ const [
 	generateApiKey,
 	verifyApiKey,
 ] = [
+	require("./config/connectToRedisCache"),
 	require("./middleware/handleErrors"),
 	require("cookie-parser"),
 	require("express"),
@@ -43,7 +49,7 @@ const [
 	process.env.PORT || 8000,
 	require("cors"),
 	require("./controllers/widgets"),
-
+	require("./middleware/getCachedEmployers"),
 	require("./routes/employers"),
 	require("./routes/removeEmployers"),
 	require("./routes/deactivateEmployers"),
@@ -54,19 +60,22 @@ const [
 	require("./routes/writer"),
 	require("./routes/deactivateWriter"),
 	require("./routes/updateWriter"),
+	require("./middleware/getCachedWriters"),
 	require("./routes/writers"),
 	require("./routes/register"),
 	require("./routes/login"),
 	require("./routes/logout"),
 	require("./middleware/verifyJWT"),
 	require("./routes/refresh"),
-	require("./config/connectToDB"),
+	require("./config/connectToMongoDB"),
 	require("mongoose"),
+	require("./middleware/getCachedUsers"),
 	require("./routes/users"),
 	require("./routes/user"),
 	require("./config/allowedOrigins"),
 	require("./middleware/verifyOrigins"),
 	require("./routes/subscribers"),
+	require("./middleware/getCachedEmployers"),
 	require("./routes/subscriber"),
 	require("./routes/deactivateSubscriber"),
 	require("./routes/updateSubscriber"),
@@ -78,6 +87,7 @@ const app = express();
 
 app.use(logErrors);
 connectToDB();
+connectToRedis();
 
 require("dotenv").config();
 //built in middleware to serve all of the static files that are to be sent to the client
@@ -99,11 +109,11 @@ app.use("/api/apiKey", generateApiKey);
 
 app.use(verifyApiKey);
 
-app.use("/api/users", getUsers);
+app.use("/api/users", getCachedUsers, getUsers);
 app.use("/api/user", getUser);
-app.use("/api/employers", getEmployers);
+app.use("/api/employers", cachedEmployers, getEmployers);
 app.use("/api/employers", getEmployer); //
-app.use("/api/writers", getWritersDetails);
+app.use("/api/writers", getCachedWriters, getWritersDetails);
 app.use("/api/register", handleNewUser);
 app.use("/api/login", loginUser);
 app.use("/api/refresh", generateAccessTokenFromRefreshToken);
@@ -112,7 +122,7 @@ app.use("/api/widgets", getWidgets);
 
 app.use(verifyJWT);
 
-app.use("/api/subscribers", getSubscribers);
+app.use("/api/subscribers", getCachedSubscribers, getSubscribers);
 app.use("/api/subscriber", getSubscriber);
 app.use("/api/writer", getWriter);
 //verify roles only admins are allowed to delete an employer
@@ -129,7 +139,7 @@ app.use("/api/deactivate/writer", deactivateWriter);
 app.use("/api/update/writer", updateWriter);
 
 mongoose.connection.once("connected", () => {
-	console.log("Connected to the database");
+	console.log("Connected to MongoDB database");
 	app.listen(PORT, () => {
 		console.log(`Server Listening on port ${PORT}`);
 	});

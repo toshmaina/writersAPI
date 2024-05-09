@@ -5,3 +5,4 @@ const [express, getWriter] = [
 const router = express.Router();
 const writer = router.get("/:id", getWriter);
 module.exports = writer;
+
